@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      姓：<input type="text" v-model="xing" />
+      <br />
+      名：<input type="text" v-model="ming" />
+      <br />
+      全名<span>{{fullName2}}</span>
+    </div>
+    <script type="text/javascript">
+      Vue.config.productionTip = false;
+      // 创建一个vue实例
+      const vm = new Vue({
+        el: "#root", // 挂载点
+
+        data() {
+          return {
+            xing: "w",
+            ming: "mx",
+            name: "wmx",
+          };
+        },
+        methods: {
+          // 没有缓存，每次都会重新执行
+          fullName() {
+            // this指向vm
+            return `${this.xing}-${this.ming}`;
+          },
+        },
+        computed: {
+          // 初次渲染时，会执行一次，然后缓存起来，之后只要依赖的数据没有发生变化，就不会再次执行
+          // 依赖的数据发生变化时，会重新执行
+          // fullName2: {
+          //   get() {
+          //     console.log(this); // this指向vm
+          //     return `${this.xing}-${this.ming}`;
+          //   },
+          //   // 用于双向绑定,需要修改才写 setter
+          //   set(value) {
+          //     const arr = value.split("-");
+          //     this.xing = arr[0];
+          //     this.ming = arr[1];
+          //   },
+          // },
+          // 简写
+          fullName2() {
+            // 使用时，不需要加括号，别把他当成方法了
+            console.log(this); // this指向vm
+            return `${this.xing}-${this.ming}`;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

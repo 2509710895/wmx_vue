@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      单向<input type="text" v-bind:value="name" />
+      <br />
+      双向<input type="text" v-model:value="name2" />
+
+      单向<input type="text" :value="name" />
+      <br />
+      双向<input type="text" v-model="name2" />
+    </div>
+    <script type="text/javascript">
+      Vue.config.productionTip = false;
+      // 创建一个vue实例
+      const vm = new Vue({
+        el: "#root", // 挂载点
+        data: {
+          // 数据
+          name: "wmx",
+          name2: "wmx22",
+        },
+      });
+    </script>
+  </body>
+</html>

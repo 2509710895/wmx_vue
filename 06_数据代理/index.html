@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h1>{{name}}</h1>
+    </div>
+    <script type="text/javascript">
+      let sex = "男";
+      let num = 18;
+      let person = {
+        name: "wmx",
+      };
+      // 数据代理 这样写的属性，不可枚举，不可遍历
+      Object.defineProperty(person, "age", {
+        // value: 18,
+        // enumerable: true, // 可枚举
+        // configurable: true, // 可配置,控制属性是否能被删除
+        // writable: true, // 可修改
+        // 访问age属性时，会调用get方法
+        get() {
+          console.log("get");
+          return num;
+        },
+        // 设置age属性时，会调用set方法
+        set(val) {
+          console.log("set");
+          num = val;
+        },
+      });
+
+      console.log(person);
+      // ------------------------
+      //数据代理
+      let obj = { x: 100 };
+      let obj2 = { y: 200 };
+      Object.defineProperty(obj, "y", {
+        get() {
+          return obj2.y;
+        },
+        set(val) {
+          obj2.y = val;
+        },
+      });
+
+      // ------------
+      // 创建一个vue实例
+      const vm = new Vue({
+        el: "#root",
+        data() {
+          return {
+            name: "wmx",
+            name2: "wmx22",
+          };
+        },
+      });
+    </script>
+  </body>
+</html>

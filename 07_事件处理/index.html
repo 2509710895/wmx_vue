@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h1>{{name}}</h1>
+      <button v-on:click="showInfo">点我提示信息</button>
+      <button @click="showInfo2($event,66)">点我提示信息2</button>
+      <input type="text" placeholder="按下回车" @keyup.enter="keyup" />
+    </div>
+    <script type="text/javascript">
+      Vue.config.productionTip = false;
+      // 创建一个vue实例
+      const vm = new Vue({
+        el: "#root", // 挂载点
+
+        data() {
+          return {
+            name: "wmx",
+          };
+        },
+        methods: {
+          showInfo() {
+            console.log(this); //vm
+            alert("hello");
+          },
+          showInfo2(event, n) {
+            console.log(this, event, n); //vm
+            alert("hello");
+          },
+          keyup(event, n) {
+            console.log("按下回车");
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
