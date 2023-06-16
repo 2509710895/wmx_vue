@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+        <!-- 遍历数组 -->
+        <h2>人员列表</h2>
+        <button @click="updateMei">更新马冬梅</button>
+        <ul>
+            <li v-for="(person,index) in persons" :key="person.id">
+                {{person.name}}--{{person.age}}--{{index}}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+      Vue.config.productionTip = false;
+        // 创建一个vue实例
+
+        // 用 computed 实现过滤
+        const vm = new Vue({
+            el: "#root", // 挂载点
+
+            data() {
+                return {
+                    persons: [
+                        { id: 1, name: '马冬梅', age: 18 },
+                        { id: 2, name: '周冬雨', age: 20 },
+                        { id: 3, name: '王五', age: 19 },
+                    ],
+                };
+            },
+            methods: {
+                updateMei() {
+                    // this.persons[0].name = '老马';// 可以
+                    // this.persons[0].age = 30;// 可以
+
+                    // this.persons[0]={ id: 1, name: '老马', age: 30 }//不行
+
+                    this.persons.splice(0,1,{ id: 1, name: '老马', age: 30 })//可以
+                }
+            },
+        });
+    </script>
+  </body>
+</html>

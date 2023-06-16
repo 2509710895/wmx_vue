@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+        <h2>显示格式化后的时间</h2>
+        <h2>现在是：{{time}}</h2>
+        <!-- 计算属性 -->
+        <h2>现在是：{{fmtTime}}</h2>
+        <!-- methods实现 -->
+        <h2>现在是：{{getFmtTime()}}</h2>
+        <!-- 过滤器实现 -->
+        <h2>现在是：{{time | timeFormater}}</h2>
+        <!-- 过滤器传参 -->
+        <h2>现在是：{{time | timeFormater('YYYY-MM-DD')}}</h2>
+        <!-- 管道 -->
+        <h2>现在是：{{time | timeFormater('YYYY-MM-DD')}} | mySlice</h2>
+    </div>
+    <script type="text/javascript">
+      Vue.config.productionTip = false;
+      Vue.filter('mySlice',function(value,start,end) {
+          return value.slice(start,end);
+      })
+      // 创建一个vue实例
+      const vm = new Vue({
+        el: "#root", // 挂载点
+
+        data() {
+          return {
+            time: Date.now(),
+          };
+        },
+        computed: {
+            fmtTime() {
+                return new Date(this.time).toLocaleString();
+            }
+        },
+        methods: {
+            getFmtTime() {
+                return new Date(this.time).toLocaleString();
+            },
+        },
+        // 局部过滤器
+        filters: {
+            timeFormater(value,str='YYYY-MM-DD HH:mm:ss') {
+                return new Date(value).toLocaleString();
+            },
+            mySlice(value,start=0,end=4) {
+                return value.slice(start,end);
+            }
+        },
+      });
+    </script>
+  </body>
+</html>

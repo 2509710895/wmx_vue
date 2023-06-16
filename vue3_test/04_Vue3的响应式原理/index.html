@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // 1.定义一个响应式的数据
+    const obj = {
+        name: 'why',
+        age: 18,
+        friend: {
+            name: 'kobe'
+        }
+    }
+
+    // 模拟vue2 响应式原理
+    // let p = {}
+    // Object.defineProperty(p, 'name', {
+    //     get() {
+    //         console.log('get name')
+    //         return obj.name
+    //     },
+    //     set(newVal) {
+    //         console.log('set name')
+    //         obj.name = newVal
+    //     }
+    // })
+
+    // Vue3 响应式原理
+    const p = new Proxy(obj,{
+        // 读取属性时调用的函数
+        get(target, key, receiver) {
+            console.log('get', key)
+            return Reflect.get(target, key, receiver)
+            // return target[key]
+        },
+        // 修改 或 设置属性时调用的函数
+        set(target, key, value, receiver) {
+            console.log('set', key)
+            return Reflect.set(target, key, value, receiver)
+            // target[key] = value
+        },
+        // 删除属性时调用的函数
+        deleteProperty(target, key) {
+            console.log('delete', key)
+            return Reflect.deleteProperty(target, key)
+            // return delete target[key]
+        },
+
+    })
+    </script>
+</body>
+</html>

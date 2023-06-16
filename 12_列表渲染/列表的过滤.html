@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+        <!-- 遍历数组 -->
+        <h2>人员列表</h2>
+        <input type="text" v-model="keyWord">
+        <ul>
+            <li v-for="(person,index) in filPersons" :key="person.id">
+                {{person.name}}--{{person.age}}--{{index}}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+      Vue.config.productionTip = false;
+        // 创建一个vue实例
+        // // 用 watch 实现过滤
+        // const vm = new Vue({
+        //     el: "#root", // 挂载点
+
+        //     data() {
+        //         return {
+        //             persons: [
+        //                 { id: 1, name: '马冬梅', age: 18 },
+        //                 { id: 2, name: '周冬雨', age: 19 },
+        //                 { id: 3, name: '王五', age: 20 },
+        //             ],
+        //             keyWord: '',
+        //             filPersons: []
+        //         };
+        //     },
+        //     watch: {
+        //         keyWord: {
+        //             handler(newVal, oldVal) {
+        //                 // console.log(newVal,oldVal);
+        //                 // console.log(this.persons);
+        //                 // console.log(this.filPersons);
+        //                 this.filPersons = this.persons.filter(item => {
+        //                     return item.name.includes(newVal)
+        //                 })
+        //             },
+        //             immediate: true
+        //         }
+        //     },
+        // });
+
+        // 用 computed 实现过滤
+        const vm = new Vue({
+            el: "#root", // 挂载点
+
+            data() {
+                return {
+                    persons: [
+                        { id: 1, name: '马冬梅', age: 18 },
+                        { id: 2, name: '周冬雨', age: 19 },
+                        { id: 3, name: '王五', age: 20 },
+                    ],
+                    keyWord: '',
+                    // filPersons: []
+                };
+            },
+            computed: {
+                filPersons() {
+                    return this.persons.filter(item => {
+                        return item.name.includes(this.keyWord)
+                    })
+                }
+            },
+        });
+    </script>
+  </body>
+</html>

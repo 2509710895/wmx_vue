@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+        <!-- 字符串写法 样式类名不确定 需要动态指定 -->
+      <h2 :class="mood">今天天气很{{info}}</h2>
+      <!-- 数组写法 样式类名不确定，数量不确定 需要动态指定 -->
+      <h2 :class="classArr">今天天气很{{info}}</h2>
+      <!-- 对象写法 样式类名确定 数量确定 但要动态决定用不用 -->
+      <h2 :class="classObj">今天天气很{{info}}</h2>
+
+      <h2 :class="classObj" :style="{fontSize:fsize+'px'}">今天天气很{{info}}</h2>
+      <h2 :class="classObj" :style="styleObj">今天天气很{{info}}</h2>
+      <h2 :class="classObj" :style="[styleObj,styleObj2]">今天天气很{{info}}</h2>
+    </div>
+    <script type="text/javascript">
+      Vue.config.productionTip = false;
+      // 创建一个vue实例
+      const vm = new Vue({
+        el: "#root", // 挂载点
+
+        data() {
+          return {
+            isHot: true,
+            mood:"happy",
+            classArr:["happy","sad"],
+            classObj:{
+                happy:true,
+                sad:false
+            },
+            styleObj:{
+                fontSize:"50px"
+            },
+            styleObj2:{
+                color:"red"
+            },
+          };
+        },
+      });
+    </script>
+  </body>
+</html>

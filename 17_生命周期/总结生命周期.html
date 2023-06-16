@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+        <h2 :style="{opacity}">生命周期</h2>
+        <button @click="quit">停止变化</button>
+    </div>
+    <script type="text/javascript">
+      Vue.config.productionTip = false;
+      
+      // 创建一个vue实例
+      const vm = new Vue({
+        el: "#root", // 挂载点
+
+        data() {
+          return {
+            opacity:1,
+            timer:null
+          };
+        },
+        methods: {
+          quit(){
+            this.$destroy();
+          }
+        },
+        // 生命周期函数
+        beforeCreate() {
+            // 在 数据监测 和 数据代理 完成之前
+            // 在vue实例建立 数据监测 数据代理（初始化）之前
+          console.log("beforeCreate");
+        },
+        created() {
+          console.log("created");
+        },
+        beforeMount() {
+          console.log("beforeMount");
+        },
+        mounted() {
+            // Vue完成模版的解析并把真实DOM渲染到页面之后（挂载完毕），会自动调用mounted这个生命周期函数
+          console.log("mounted");
+            this.timer=setInterval(() => {
+                vm.opacity -= 0.1;
+                if (vm.opacity <= 0) {
+                    vm.opacity = 1;
+                }
+            }, 100);
+        },
+        beforeUpdate() {
+            // 数据更新之前
+          console.log("beforeUpdate");
+        },
+        updated() {
+            // 数据更新后
+          console.log("updated");
+        },
+        beforeDestroy() {
+          console.log("beforeDestroy");
+          clearInterval(this.timer);
+        },
+        destroyed() {
+          console.log("destroyed");
+        },
+
+      });
+      // 通过外部定时器改变opacity的值，不推荐
+    //   setInterval(() => {
+    //     vm.opacity -= 0.1;
+    //     if(vm.opacity <= 0){
+    //       vm.opacity = 1;
+    //     }
+    //   }, 100);
+    </script>
+  </body>
+</html>

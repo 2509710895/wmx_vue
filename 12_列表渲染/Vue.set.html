@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+        <!-- 遍历数组 -->
+        <h2>学校名称:{{name}}</h2>
+        <h2>学校地址:{{address}}</h2>
+        <button @click="addSex">添加一个性别</button>
+        <h2>学生姓名:{{student.name}}</h2>
+        <h2>学生年龄:{{student.age.rAge}}</h2>
+        <h2>学生年龄:{{student.age.sAge}}</h2>
+        <h2 v-if="student.sex">性别:{{student.sex}}</h2>
+        <h2>朋友</h2>
+        <ul>
+            <li v-for="(item,index) in student.friends" :key="index">
+                姓名:{{item.name}}
+                年龄:{{item.age}}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+      Vue.config.productionTip = false;
+      // 创建一个vue实例
+      const vm = new Vue({
+        el: "#root", // 挂载点
+
+        data() {
+          return {
+            name: "北京大学",
+            address: "北京市海淀区",
+            student:{
+                name:"张三",
+                age:{
+                    rAge:18,
+                    sAge:20
+                },
+                friends:[
+                    {name:"李四",age:19},
+                    {name:"王五",age:20},
+                    {name:"赵六",age:21},
+                ]
+            }
+          };
+        },
+        methods: {
+          addSex(){
+            // 第一个参数 不能是 vm实例 或 vm实例中根数据对象
+            // Vue.set(this.student,'sex','男')
+            this.$set(this.student,'sex','男')
+          }
+        },
+      });
+    </script>
+  </body>
+</html>

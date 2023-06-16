@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+        <!-- 遍历数组 -->
+        <h2>学校名称:{{name}}</h2>
+        <h2>学校地址:{{address}}</h2>
+        <h2>学生姓名:{{student.name}}</h2>
+        <h2>学生年龄:{{student.age.rAge}}</h2>
+        <h2>学生年龄:{{student.age.sAge}}</h2>
+        <h2>朋友</h2>
+        <ul>
+            <li v-for="(item,index) in student.friends" :key="index">
+                <h2>姓名:{{item.name}}</h2>
+                <h2>年龄:{{item.age}}</h2>
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+      Vue.config.productionTip = false;
+      // 创建一个vue实例
+      // vue 对被监听的数组的变更方法进行了包裹，所以才能监听到数组的变化
+      // push pop shift unshift splice sort reverse
+      const vm = new Vue({
+        el: "#root", // 挂载点
+
+        data() {
+          return {
+            name: "北京大学",
+            address: "北京市海淀区",
+            student:{
+                name:"张三",
+                age:{
+                    rAge:18,
+                    sAge:20
+                },
+                friends:[
+                    {name:"李四",age:19},
+                    {name:"王五",age:20},
+                    {name:"赵六",age:21},
+                ]
+            }
+          };
+        },
+        
+      });
+    </script>
+  </body>
+</html>

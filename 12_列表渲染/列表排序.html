@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+        <!-- 遍历数组 -->
+        <h2>人员列表</h2>
+        <input type="text" v-model="keyWord">
+        <button @click="sortType=1">年龄升序</button>
+        <button @click="sortType=2">年龄降序</button>
+        <button @click="sortType=0">原顺序</button>
+        <ul>
+            <li v-for="(person,index) in filPersons" :key="person.id">
+                {{person.name}}--{{person.age}}--{{index}}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+      Vue.config.productionTip = false;
+        // 创建一个vue实例
+
+        // 用 computed 实现过滤
+        const vm = new Vue({
+            el: "#root", // 挂载点
+
+            data() {
+                return {
+                    persons: [
+                        { id: 1, name: '马冬梅', age: 18 },
+                        { id: 2, name: '周冬雨', age: 20 },
+                        { id: 3, name: '王五', age: 19 },
+                    ],
+                    keyWord: '',
+                    sortType:0,// 0原顺序 1升序 2降序
+                };
+            },
+            computed: {
+                filPersons() {
+                    const arr=this.persons.filter(item => {
+                        return item.name.includes(this.keyWord)
+                    })
+                    if(this.sortType===1){
+                        arr.sort((a,b)=>{
+                            return a.age-b.age
+                        })
+                    }else if(this.sortType===2){
+                        arr.sort((a,b)=>{
+                            return b.age-a.age
+                        })
+                    }
+                    return arr
+                }
+            },
+        });
+    </script>
+  </body>
+</html>
